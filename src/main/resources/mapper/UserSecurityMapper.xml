@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yp.securitydemo.dao.UserSecurityDao">
+    <select id="getUserByUserName" resultType="com.yp.securitydemo.domain.RbacUser">
+        select id, username, password, status from rbac_user where username = #{username}
+    </select>
+
+    <select id="getMenuByUserId" resultType="com.yp.securitydemo.domain.RbacMenu">
+        select rm.* from rbac_user_role rur, rbac_role_menu rrm, rbac_menu rm where
+            rur.role_id = rrm.role_id AND
+            rrm.menu_id = rm.id AND
+            rur.role_id = #{userId}
+    </select>
+</mapper>
